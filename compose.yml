@@ -17,8 +17,7 @@ services:
       - "5001:5001"
     networks:
       - mynetwork
-    depends_on:
-      - db
+    
     
 
   book_service:
@@ -29,8 +28,7 @@ services:
       - "5002:5002"
     networks:
       - mynetwork
-    depends_on:
-      - db
+    
   borrow_service:
     image: shaikmustafa/arshad:borrow
     deploy:
@@ -39,8 +37,7 @@ services:
       - "5003:5003"
     networks:
       - mynetwork
-    depends_on:
-      - db
+    
 
   frontend:
     image: shaikmustafa/arshad:frontend
