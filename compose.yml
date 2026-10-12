@@ -23,8 +23,7 @@ services:
       - "5001:5001"
     networks:
       - myapp
-    depends_on:
-      - db
+    
     deploy:
       resources:
         reservations:
@@ -40,8 +39,7 @@ services:
       - "5002:5002"
     networks:
       - myapp
-    depends_on:
-      - db
+    
     deploy:
       resources:
         reservations:
@@ -57,8 +55,7 @@ services:
       - "5003:5003"
     networks:
       - myapp
-    depends_on:
-      - db
+   
     deploy:
       resources:
         reservations:
