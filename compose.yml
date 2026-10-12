@@ -1,60 +1,94 @@
----
 services:
   db:
-    image: shaikmustafa/arshad:db
-    deploy:
-      replicas: 1
+    conatainer_name: db
+    build: abdulfassi/python:db
     ports:
       - "3306:3306"
+    volumes:
+      - mydata:/var/lib/mysql
     networks:
-      - mynetwork
-
-  auth_service:
-    image: shaikmustafa/arshad:auth
+      - myapp
     deploy:
-      replicas: 1
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 100M
+  auth_service:
+    container_name: auth_service
+    build: abdulfassi/python:auth
     ports:
       - "5001:5001"
     networks:
-      - mynetwork
-    depends_on:
+      - myapp
+    depends-on:
       - db
-    
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 100M
 
   book_service:
-    image: shaikmustafa/arshad:book
-    deploy:
-      replicas: 1
+    container_name: book_service
+    build: abdulfassi/python:book
     ports:
       - "5002:5002"
-    networks:
-      - mynetwork
-    depends_on:
+    depends-on:
       - db
-  borrow_service:
-    image: shaikmustafa/arshad:borrow
+    networks:
+      - myapp
     deploy:
-      replicas: 1
+     resources:
+       reservations:
+         cpus: "0.5"
+         memory: 100M
+       limits:
+         cpus: "0.5"
+         memory: 100M
+
+  borrow:
+    container_name: borrow
+    build: abdulfassi/python:borrow
     ports:
       - "5003:5003"
     networks:
-      - mynetwork
-    depends_on:
+      - myapp
+    depends-on:
       - db
-
-  frontend:
-    image: shaikmustafa/arshad:frontend
     deploy:
-      replicas: 1
-    ports:
-      - "5000:5000"
-    networks:
-      - mynetwork
-    depends_on:
-      - auth_service
-      - book_service
-      - borrow_service
+     resources:
+       reservations:
+         cpus: "0.5"
+         memory: 100M
+       limits:
+         cpus: "0.5"
+         memory: 100M
+ frontend:
+   container_name: frontend-cont
+   build: abdulfassi/python:app
+   ports:
+     - "5000:5000"
+   networks:
+     - myapp
+   depends-on:
+     - db
+   deploy:
+     resources:
+       reservations:
+         cpus: "0.5"
+         memory: 100M
+       limits:
+         cpus: "0.5"
+         memory: 100M
+network:
+  myapp:
+   driver: overlay
 
-networks:
-  mynetwork:
-    driver: bridge
+volumes:
+  - mydata
