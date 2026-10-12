@@ -12,10 +12,10 @@ services:
       resources:
         reservations:
           cpus: "0.5"
-          memory: 100M
+          memory: 256M
         limits:
           cpus: "0.5"
-          memory: 100M
+          memory: 512M
 
   auth_service:
     image: abdulfassi/python:auth
@@ -29,10 +29,10 @@ services:
       resources:
         reservations:
           cpus: "0.5"
-          memory: 100M
+          memory: 256M
         limits:
           cpus: "0.5"
-          memory: 100M
+          memory: 512M
 
   book_service:
     image: abdulfassi/python:book
@@ -46,10 +46,10 @@ services:
       resources:
         reservations:
           cpus: "0.5"
-          memory: 100M
+          memory: 256M
         limits:
           cpus: "0.5"
-          memory: 100M
+          memory: 512M
 
   borrow:
     image: abdulfassi/python:borrow
@@ -63,10 +63,10 @@ services:
       resources:
         reservations:
           cpus: "0.5"
-          memory: 100M
+          memory: 256M
         limits:
           cpus: "0.5"
-          memory: 100M
+          memory: 512M
 
   frontend:
     image: abdulfassi/python:app
@@ -78,10 +78,10 @@ services:
       resources:
         reservations:
           cpus: "0.5"
-          memory: 100M
+          memory: 256M
         limits:
           cpus: "0.5"
-          memory: 100M
+          memory: 512M
 
 networks:
   myapp:
