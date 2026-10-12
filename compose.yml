@@ -1,7 +1,7 @@
+
 services:
   db:
-    conatainer_name: db
-    build: abdulfassi/python:db
+    image: abdulfassi/python:db
     ports:
       - "3306:3306"
     volumes:
@@ -16,14 +16,14 @@ services:
         limits:
           cpus: "0.5"
           memory: 100M
+
   auth_service:
-    container_name: auth_service
-    build: abdulfassi/python:auth
+    image: abdulfassi/python:auth
     ports:
       - "5001:5001"
     networks:
       - myapp
-    depends-on:
+    depends_on:
       - db
     deploy:
       resources:
@@ -35,58 +35,57 @@ services:
           memory: 100M
 
   book_service:
-    container_name: book_service
-    build: abdulfassi/python:book
+    image: abdulfassi/python:book
     ports:
       - "5002:5002"
-    depends-on:
-      - db
     networks:
       - myapp
+    depends_on:
+      - db
     deploy:
-     resources:
-       reservations:
-         cpus: "0.5"
-         memory: 100M
-       limits:
-         cpus: "0.5"
-         memory: 100M
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 100M
 
   borrow:
-    container_name: borrow
-    build: abdulfassi/python:borrow
+    image: abdulfassi/python:borrow
     ports:
       - "5003:5003"
     networks:
       - myapp
-    depends-on:
+    depends_on:
       - db
     deploy:
-     resources:
-       reservations:
-         cpus: "0.5"
-         memory: 100M
-       limits:
-         cpus: "0.5"
-         memory: 100M
- frontend:
-   container_name: frontend-cont
-   build: abdulfassi/python:app
-   ports:
-     - "5000:5000"
-   networks:
-     - myapp
-   deploy:
-     resources:
-       reservations:
-         cpus: "0.5"
-         memory: 100M
-       limits:
-         cpus: "0.5"
-         memory: 100M
-network:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 100M
+
+  frontend:
+    image: abdulfassi/python:app
+    ports:
+      - "5000:5000"
+    networks:
+      - myapp
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 100M
+        limits:
+          cpus: "0.5"
+          memory: 100M
+
+networks:
   myapp:
-   driver: overlay
+    driver: overlay
 
 volumes:
   mydata:
