@@ -76,8 +76,6 @@ services:
      - "5000:5000"
    networks:
      - myapp
-   depends-on:
-     - db
    deploy:
      resources:
        reservations:
@@ -91,4 +89,4 @@ network:
    driver: overlay
 
 volumes:
-  - mydata
+  mydata:
